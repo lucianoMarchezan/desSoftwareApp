@@ -1,4 +1,4 @@
-package SoftwareDev.ExperimentApp;
+package SoftwareDev.ExMAp;
 
 /**
  * Hello world!

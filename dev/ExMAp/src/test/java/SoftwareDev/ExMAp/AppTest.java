@@ -1,4 +1,4 @@
-package SoftwareDev.ExperimentApp;
+package SoftwareDev.ExMAp;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
