@@ -4,4 +4,8 @@ Empirical software engineering have been applying experiments for a long time as
 
 This application is in development for software dev discipline for Software Engineering Master degree at Unipampa
 
+Class Diagram v1:
+
+![https://raw.githubusercontent.com/lucianoMarchezan/desSoftwareApp/dev/eng/class%20diagram.png]
+
 **By Luciano Marchezan**
