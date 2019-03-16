@@ -1,12 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/template/Layout.xhtml">
 
-    <h:head>
-        <title>EXMAp</title>
-    </h:head>
-    <h:body>
-        <h:outputLabel value="INDEX"/>
-        <p:spinner />
-    </h:body>
+		<ui:define name="content">
+			<p:outputLabel value="#{experimentBean.msg}" id="msg1"
+				styleClass="msg" />
+
+			<p:dataTable emptyMessage="No experiments registered!"
+				value="#{experimentBean.listExperiments}" var="e"
+				styleClass="order-table" headerClass="order-table-header"
+				rowClasses="order-table-odd-row,order-table-even-row"
+				paginator="true" rows="20">
+				<p:column headerText="Id" sortBy="#{e.id}" filterBy="#{e.id}"
+					filterMatchMode="exact">
+					<h:outputText value="#{e.id}" />
+				</p:column>
+				<p:column headerText="Name" sortBy="#{e.name}" filterBy="#{e.name}"
+					filterMatchMode="exact">
+					<h:outputText value="#{e.name}" />
+				</p:column>
+				<p:column headerText="Description" sortBy="#{e.description}"
+					filterBy="#{e.description}" filterMatchMode="exact">
+					<h:outputText value="#{e.description}" />
+				</p:column>
+				<p:column headerText="Domain" sortBy="#{e.domain}"
+					filterBy="#{e.domain}" filterMatchMode="exact">
+					<h:outputText value="#{e.domain}" />
+				</p:column>
+				<p:column headerText="Goal" sortBy="#{e.goal}" filterBy="#{e.goal}"
+					filterMatchMode="exact">
+					<h:outputText value="#{e.goal}" />
+				</p:column>
+
+				<p:column>
+					<h:form id="commandForm">
+
+						<h:commandButton value="Delete" styleClass="fs-button-portfolio"
+							action="#{experimentBean.deleteExperiment}" ajax="false">
+							<f:setPropertyActionListener
+								target="#{experimentBean.selectedId}" value="#{e.CNPJ}" />
+						</h:commandButton>
+						<h:commandButton value="Edit" styleClass="fs-button-portfolio"
+							action="#{experimentBean.editExperiment}" ajax="false">
+							<f:setPropertyActionListener
+								target="#{experimentBean.selectedId}" value="#{e.id}" />
+						</h:commandButton>
+
+					</h:form>
+				</p:column>
+			</p:dataTable> 
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+                <title>ExMAp</title>
+            </f:facet>
+    </h:head>
+
+    <h:body>
+   
+        <p:layout fullPage="true">
+        
+            <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" gutter="-1">
+                <ui:insert name="header"  > 
+                    <ui:include src="/template/Cabecalho.xhtml" /> 
+                </ui:insert> 
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" closable="true" collapsible="true" resizable="true" gutter="-1" >
+                <ui:insert name="MenuWest"  > 
+                    <ui:include src="/template/MenuLateral.xhtml" /> 
+                </ui:insert> 
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="center" collapsible="true" gutter="-1">
+                <ui:insert name="content" > 
+                    <ui:include src="/template/Conteudo.xhtml" /> 
+                </ui:insert> 
+            </p:layoutUnit>
+
+           
+            
+        </p:layout>
+            
+    </h:body> 
+    
+</html>
+
+

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/template/Layout.xhtml">
+
+		<ui:define name="content">
+			<p:outputLabel value="#{experimentBean.msg}" id="msg1"
+				styleClass="msg" />
+
+			<h:form id="experimentForm" enctype="multipart/form-data"
+				prependId="false">
+
+				<p:panelGrid id="panel1" columns="3" border="3" cellpadding="5"
+					cellspacing="1">
+					<f:facet name="header">
+						<h:outputText value="New experiment" />
+					</f:facet>
+					<p:outputLabel value="ID:" />
+					<p:inputText value="#{experimentBean.id}" id="id" maxlength="4"
+						required="true" requiredMessage="Mandatory Field" />
+					<p:message for="id" />
+
+					<p:outputLabel value="Name:" />
+					<p:inputText value="#{experimentBean.name}" id="name"
+						maxlength="100" required="true" requiredMessage="Mandatory Field" />
+					<p:message for="name" />
+
+					<p:outputLabel value="Description:" />
+					<p:inputTextarea value="#{experimentBean.description}"
+						required="true" id="description" requiredMessage="Mandatory Field">
+					</p:inputTextarea>
+					<p:message for="CNPJ" />
+
+					<p:outputLabel value="Domain:" required="true" />
+					<p:inputText value="#{experimentBean.domain}" id="domain"
+						maxlength="150" required="true" requiredMessage="Mandatory Field" />
+					<p:message for="domain" />
+
+					<p:outputLabel value="Goal:" />
+					<p:inputTextarea value="#{experimentBean.goal}" id="goal"
+						required="true" requiredMessage="Mandatory Field" maxlength="300">
+					</p:inputTextarea>
+					<p:message for="goal" />
+
+					<p:outputLabel value="Start Date:" />
+					<p:calendar value="#{experimentBean.goal}" id="startDate"
+						required="true" requiredMessage="Mandatory Field">
+					</p:calendar>
+					<p:message for="startDate" />
+
+
+					<f:facet name="footer">
+						<h:commandButton value="Update" update="experimentForm"
+							action="#{experimentBean.updateExperiment}">
+							<f:ajax render="id nome description domain goal startDate"
+								execute="@form" />
+						</h:commandButton>
+					</f:facet>
+
+				</p:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
