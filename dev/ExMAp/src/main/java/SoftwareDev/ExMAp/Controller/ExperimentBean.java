@@ -1,9 +1,14 @@
 package SoftwareDev.ExMAp.Controller;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
@@ -55,13 +60,13 @@ public class ExperimentBean implements java.io.Serializable{
 
 
 	public String getSelectedId() { 
-		
+
 		return selectedId;
 
 	}
-	
+
 	public void setSelectedId(String i) {
-		 selectedId = i;;
+		selectedId = i;;
 
 	}
 
@@ -83,14 +88,16 @@ public class ExperimentBean implements java.io.Serializable{
 	}
 
 	public String editExperiment() {
-		System.out.println("XX");
+
 		System.out.println("Editing Experiment "+ getSelectedId());
 
-		
+
 		Experiment experiment = experimentDAO.getExperiment(getSelectedId());
 
+
 		if(experiment!=null){
-			System.out.println("XX1");
+
+
 			this.experiment.setId(experiment.getId());
 			this.experiment.setDescription(experiment.getDescription());
 			this.experiment.setName(experiment.getName()); 
@@ -102,16 +109,15 @@ public class ExperimentBean implements java.io.Serializable{
 			this.setMsg("Experiment not found!");
 			log.error("Experiment not found");
 		}
-		System.out.println("DEU?");
 
 		return "update_experiment";
-		 
+
 	}
 
 	public String createExperiment() {
 		String str= "";
 		try{
-
+			 
 			experimentDAO.createExperiment(this.experiment); 
 
 			str = "index";
@@ -129,7 +135,7 @@ public class ExperimentBean implements java.io.Serializable{
 
 	public String deleteExperiment(){
 
-		log.info("Delenting Experiment "+this.getSelectedId());
+		System.out.println("Deleting Experiment "+this.getSelectedId());
 
 		String str = "index";
 
@@ -138,13 +144,19 @@ public class ExperimentBean implements java.io.Serializable{
 			experimentDAO.deleteExperiment(this.getSelectedId());
 
 			clearExperiment();
-			this.setMsg("Deleted with sucess!");
+			addMessage("","Deleted with sucess!");
 
 		}catch(Exception e){
 			this.setMsg(e.getMessage());
 			log.error(e);
 		}      
 
+		try {
+			reload();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return str;
 	}
 
@@ -172,19 +184,32 @@ public class ExperimentBean implements java.io.Serializable{
 
 	public String updateExperiment(){
 		String str = "index";
+
+
+
 		try{
 			experimentDAO.updateExperiment(this.experiment); 
 
 			clearExperiment();
 
-			this.setMsg("Sucess Updated!");
+			addMessage("", "Successful updated!"); 
 		}catch(Exception e){
 			this.setMsg(e.getMessage());
-			str = "deleteUpdate";
+			str = "update_experiment";
 			log.error(e);
 		}
 
 		return str;
+	}
+
+	public void addMessage(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+
+	public void reload() throws IOException {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
 
 	//  public List<Researcher> getResearcheres() {

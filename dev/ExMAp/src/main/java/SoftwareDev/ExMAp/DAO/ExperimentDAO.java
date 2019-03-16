@@ -50,13 +50,13 @@ public class ExperimentDAO {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-			System.out.println("x335X");
+		 
 			experiment = (Experiment) session.get(Experiment.class, new String(id));
 		} finally {
 			
 			session.close();
 		}
-		System.out.println("XX334");
+		 
 		return experiment;
 	}
 
@@ -120,12 +120,13 @@ public class ExperimentDAO {
 	//		return matrizes;
 	//	}
 
-	public void updateExperiment(Experiment Experiment) throws Exception{
+	public void updateExperiment(Experiment experiment) throws Exception{
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
+		 
 		try {
 			trns = session.beginTransaction();
-			session.update(Experiment);
+			session.saveOrUpdate(experiment);
 			session.getTransaction().commit();
 		} catch (RuntimeException e) {
 			if (trns != null) {

@@ -15,50 +15,57 @@
 			<p:outputLabel value="#{experimentBean.msg}" id="msg1"
 				styleClass="msg" />
 
-			<p:dataTable emptyMessage="No experiments registered!"
+			<p:dataTable emptyMessage="No experiments registered!" id="listForm"
 				value="#{experimentBean.listExperiments}" var="e"
 				styleClass="order-table" headerClass="order-table-header"
 				rowClasses="order-table-odd-row,order-table-even-row"
 				paginator="true" rows="20">
-				<p:column headerText="Id" sortBy="#{e.id}" filterBy="#{e.id}"
-					filterMatchMode="exact">
+				<p:column headerText="Id" sortBy="#{e.id}">
 					<h:outputText value="#{e.id}" />
 				</p:column>
-				<p:column headerText="Name" sortBy="#{e.name}" filterBy="#{e.name}"
-					filterMatchMode="exact">
+				<p:column headerText="Name" sortBy="#{e.name}">
 					<h:outputText value="#{e.name}" />
 				</p:column>
-				<p:column headerText="Description" sortBy="#{e.description}"
-					filterBy="#{e.description}" filterMatchMode="exact">
+				<p:column headerText="Description" sortBy="#{e.description}">
 					<h:outputText value="#{e.description}" />
 				</p:column>
-				<p:column headerText="Domain" sortBy="#{e.domain}"
-					filterBy="#{e.domain}" filterMatchMode="exact">
+				<p:column headerText="Domain" sortBy="#{e.domain}">
 					<h:outputText value="#{e.domain}" />
 				</p:column>
-				<p:column headerText="Goal" sortBy="#{e.goal}" filterBy="#{e.goal}"
-					filterMatchMode="exact">
+				<p:column headerText="Goal" sortBy="#{e.goal}">
 					<h:outputText value="#{e.goal}" />
 				</p:column>
 
 				<p:column>
 					<h:form id="commandForm">
 
+						<p:growl id="message" showDetail="true" />
+						<p:commandButton icon="fa fa-fw fa-edit" update="listForm"
+							action="#{experimentBean.editExperiment}">
+							<f:setPropertyActionListener
+								target="#{experimentBean.selectedId}" value="#{e.id}" />
+						</p:commandButton>
+						<p:commandButton icon="fa fa-fw fa-trash" update="listForm" 
+							action="#{experimentBean.deleteExperiment}" ajax="true">
+							<p:confirm header="Confirmation"
+								message="You are about to delete this register. Comfirm?"
+								icon="fa fa-exclamation-triangle" />
+							<f:setPropertyActionListener
+								target="#{experimentBean.selectedId}" value="#{e.id}" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							
+								<p:commandButton value="Yes" type="button" update="listForm"
+									ajax="false" styleClass="ui-confirmdialog-yes"
+									icon="fa fa-check" />
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+							
+						</p:confirmDialog>
 						
-						<p:commandButton icon="fa fa-fw fa-edit" 
-							action="#{experimentBean.editExperiment}" ajax="false">
-							<f:setPropertyActionListener
-								target="#{experimentBean.selectedId}" value="#{e.id}" />
-						</p:commandButton>
-						<p:commandButton  icon="fa fa-fw fa-trash" type="button"
-							action="#{experimentBean.deleteExperiment}" ajax="false">
-							<f:setPropertyActionListener
-								target="#{experimentBean.selectedId}" value="#{e.id}" />
-						</p:commandButton>
-
 					</h:form>
 				</p:column>
-			</p:dataTable> 
+			</p:dataTable>
 		</ui:define>
 	</ui:composition>
 </h:body>
