@@ -2,13 +2,13 @@ package SoftwareDev.ExMAp.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
 import SoftwareDev.ExMAp.DAO.ExperimentDAO;
 import SoftwareDev.ExMAp.Model.Experiment;
-import SoftwareDev.ExMAp.Model.Researcher;
 
 @ManagedBean(name = "experimentBean")
 public class ExperimentBean implements java.io.Serializable{
@@ -25,8 +25,9 @@ public class ExperimentBean implements java.io.Serializable{
 	private List<Experiment> experiments;
 	//    private List<Researcher> researchers;
 
-	public ExperimentBean() {
-		
+	@PostConstruct
+	public void init() {
+
 		experiment = new Experiment();
 		experimentDAO= new ExperimentDAO();
 	}
@@ -53,9 +54,14 @@ public class ExperimentBean implements java.io.Serializable{
 
 
 
-	public String getSelectedId() {
-
+	public String getSelectedId() { 
+		
 		return selectedId;
+
+	}
+	
+	public void setSelectedId(String i) {
+		 selectedId = i;;
 
 	}
 
@@ -77,35 +83,38 @@ public class ExperimentBean implements java.io.Serializable{
 	}
 
 	public String editExperiment() {
-		log.info("Editing Experiment "+this.getSelectedId());
+		System.out.println("XX");
+		System.out.println("Editing Experiment "+ getSelectedId());
 
 		
-		Experiment Experiment = experimentDAO.getExperiment(this.getSelectedId());
+		Experiment experiment = experimentDAO.getExperiment(getSelectedId());
 
-		if(Experiment!=null){
-			this.experiment.setId(Experiment.getId());
-			this.experiment.setDescription(Experiment.getDescription());
-			this.experiment.setName(Experiment.getName()); 
-			this.experiment.setDomain(Experiment.getDomain());
-			this.experiment.setGoal(Experiment.getGoal());  
-			this.experiment.setStartDate(Experiment.getStartDate()); 
+		if(experiment!=null){
+			System.out.println("XX1");
+			this.experiment.setId(experiment.getId());
+			this.experiment.setDescription(experiment.getDescription());
+			this.experiment.setName(experiment.getName()); 
+			this.experiment.setDomain(experiment.getDomain());
+			this.experiment.setGoal(experiment.getGoal());  
+			this.experiment.setStartDate(experiment.getStartDate()); 
 
 		}else{
 			this.setMsg("Experiment not found!");
 			log.error("Experiment not found");
 		}
+		System.out.println("DEU?");
 
-
-		return "update";
+		return "update_experiment";
+		 
 	}
 
 	public String createExperiment() {
 		String str= "";
 		try{
-			 		 
+
 			experimentDAO.createExperiment(this.experiment); 
 
-			str = "index";
+//			str = "index";
 			clearExperiment();
 			this.setMsg("Experiment registered!");
 		}catch(Exception e){
@@ -114,7 +123,7 @@ public class ExperimentBean implements java.io.Serializable{
 			str = "newExperiment";
 			log.error(e);
 		}
-		
+
 		return str;
 	}
 
@@ -125,7 +134,7 @@ public class ExperimentBean implements java.io.Serializable{
 		String str = "index";
 
 		try{
-		 
+
 			experimentDAO.deleteExperiment(this.getSelectedId());
 
 			clearExperiment();
@@ -142,27 +151,23 @@ public class ExperimentBean implements java.io.Serializable{
 
 	public List<Experiment> getListExperiments(){
 
-		clearExperiment();
+		if(listExperiments==null) {
+			clearExperiment();
 
-		log.info("Listing Experiment");
+			log.info("Listing Experiment");
 
-		listExperiments = 
-				new ArrayList<Experiment>();
-		try{
-		 
-			System.out.println("ECSA");
-			experimentDAO.listExperiments();
-			listExperiments = experimentDAO.getExperiments();
-			System.out.println("XASDASDSADASDASDASDASDXASDASDA");
-			System.out.println(experimentDAO.getExperiments());
-			
+			listExperiments = 
+					new ArrayList<Experiment>();
+			try{
 
-		}catch(Exception e){
-			this.setMsg(e.getMessage());
-			log.error(e);
-		}
-
-		return listExperiments;    
+				listExperiments = experimentDAO.listExperiments(); 
+			}catch(Exception e){
+				this.setMsg(e.getMessage());
+				log.error(e);
+			}
+			return listExperiments;   
+		}else
+			return listExperiments;    
 	}
 
 	public String updateExperiment(){

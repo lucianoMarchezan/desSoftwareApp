@@ -24,45 +24,45 @@
 						<h:outputText value="New experiment" />
 					</f:facet>
 					<p:outputLabel value="ID:" />
-					<p:inputText value="#{experimentBean.id}" id="id" maxlength="4"
+					<p:inputText value="#{experimentBean.experiment.id}" id="id" maxlength="4"
 						required="true" requiredMessage="Mandatory Field" />
 					<p:message for="id" />
 
 					<p:outputLabel value="Name:" />
-					<p:inputText value="#{experimentBean.name}" id="name"
+					<p:inputText value="#{experimentBean.experiment.name}" id="name"
 						maxlength="100" required="true" requiredMessage="Mandatory Field" />
 					<p:message for="name" />
 
 					<p:outputLabel value="Description:" />
-					<p:inputTextarea value="#{experimentBean.description}"
+					<p:inputTextarea value="#{experimentBean.experiment.description}"
 						required="true" id="description" requiredMessage="Mandatory Field">
 					</p:inputTextarea>
-					<p:message for="CNPJ" />
+					<p:message for="description" />
 
 					<p:outputLabel value="Domain:" required="true" />
-					<p:inputText value="#{experimentBean.domain}" id="domain"
+					<p:inputText value="#{experimentBean.experiment.domain}" id="domain"
 						maxlength="150" required="true" requiredMessage="Mandatory Field" />
 					<p:message for="domain" />
 
 					<p:outputLabel value="Goal:" />
-					<p:inputTextarea value="#{experimentBean.goal}" id="goal"
+					<p:inputTextarea value="#{experimentBean.experiment.goal}" id="goal"
 						required="true" requiredMessage="Mandatory Field" maxlength="300">
 					</p:inputTextarea>
 					<p:message for="goal" />
 
 					<p:outputLabel value="Start Date:" />
-					<p:calendar value="#{experimentBean.goal}" id="startDate"
+					<p:calendar value="#{experimentBean.experiment.startDate}" id="startDate"
 						required="true" requiredMessage="Mandatory Field">
 					</p:calendar>
 					<p:message for="startDate" />
 
 
 					<f:facet name="footer">
-						<h:commandButton value="Update" update="experimentForm"
+						<p:commandButton value="Update" update="experimentForm" icon="fa fa-fw fa-save"
 							action="#{experimentBean.updateExperiment}">
 							<f:ajax render="id nome description domain goal startDate"
 								execute="@form" />
-						</h:commandButton>
+						</p:commandButton>
 					</f:facet>
 
 				</p:panelGrid>

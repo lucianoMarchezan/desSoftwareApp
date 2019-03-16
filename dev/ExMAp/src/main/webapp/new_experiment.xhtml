@@ -26,43 +26,43 @@
 					</f:facet>
 					<p:outputLabel value="ID:" />
 					<p:inputText value="#{experimentBean.experiment.id}" id="id" maxlength="4"
-						required="true" requiredMessage="Mandatory Field" />
+						required="true" requiredMessage="Required Field" />
 					<p:message for="id" />
 
 					<p:outputLabel value="Name:" />
 					<p:inputText value="#{experimentBean.experiment.name}" id="name" maxlength="100"
-						required="true" requiredMessage="Mandatory Field" />
+						required="true" requiredMessage="Required Field" />
 					<p:message for="name" />
 
 					<p:outputLabel value="Description:" />
 					<p:inputTextarea value="#{experimentBean.experiment.description}" required="true"
-						id="description" requiredMessage="Mandatory Field">
+						id="description" requiredMessage="Required Field">
 					</p:inputTextarea>
 					<p:message for="description" />
 
 					<p:outputLabel value="Domain:" required="true" />
 					<p:inputText value="#{experimentBean.experiment.domain}" id="domain"
-						maxlength="150" required="true" requiredMessage="Mandatory Field" />
+						maxlength="150" required="true" requiredMessage="Required Field" />
 					<p:message for="domain" />
 
 					<p:outputLabel value="Goal:" />
 					<p:inputTextarea value="#{experimentBean.experiment.goal}" id="goal"
-						required="true" requiredMessage="Mandatory Field" maxlength="300">
+						required="true" requiredMessage="Required Field" maxlength="300">
 					</p:inputTextarea>
 					<p:message for="goal" />
 
 					<p:outputLabel value="Start Date:" />
 					<p:calendar value="#{experimentBean.experiment.startDate}" id="startDate"
-						required="true" requiredMessage="Mandatory Field">
+						required="true" requiredMessage="Required Field">
 					</p:calendar>
 					<p:message for="startDate" />
 
 
 					<f:facet name="footer">
-						<h:commandButton value="Save"
+						<p:commandButton value="Save" icon="fa fa-fw fa-save"
 							action="#{experimentBean.createExperiment}"
 							update="experimentForm">
-						</h:commandButton>
+						</p:commandButton>
 					</f:facet>
 
 				</p:panelGrid>

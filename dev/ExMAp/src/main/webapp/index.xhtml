@@ -44,16 +44,17 @@
 				<p:column>
 					<h:form id="commandForm">
 
-						<h:commandButton value="Delete" styleClass="fs-button-portfolio"
-							action="#{experimentBean.deleteExperiment}" ajax="false">
-							<f:setPropertyActionListener
-								target="#{experimentBean.selectedId}" value="#{e.CNPJ}" />
-						</h:commandButton>
-						<h:commandButton value="Edit" styleClass="fs-button-portfolio"
+						
+						<p:commandButton icon="fa fa-fw fa-edit" 
 							action="#{experimentBean.editExperiment}" ajax="false">
 							<f:setPropertyActionListener
 								target="#{experimentBean.selectedId}" value="#{e.id}" />
-						</h:commandButton>
+						</p:commandButton>
+						<p:commandButton  icon="fa fa-fw fa-trash" type="button"
+							action="#{experimentBean.deleteExperiment}" ajax="false">
+							<f:setPropertyActionListener
+								target="#{experimentBean.selectedId}" value="#{e.id}" />
+						</p:commandButton>
 
 					</h:form>
 				</p:column>

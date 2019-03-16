@@ -5,11 +5,18 @@ import java.util.List;
 import SoftwareDev.ExMAp.Model.Experiment;
 import SoftwareDev.ExMAp.DAO.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+
 
 public class ExperimentDAO {
 	private List<Experiment> experiments;
-	
+
 	public List<Experiment> getExperiments() {
 		return experiments;
 	}
@@ -32,24 +39,25 @@ public class ExperimentDAO {
 			e.printStackTrace();
 			throw new Exception("Error during Experiment creation");
 		} finally {
-			session.flush();
+			
 			session.close();
 		}
 	}
 
 	public Experiment getExperiment(String id){
 
-		Experiment Experiment = null;
+		Experiment experiment = null;
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-			Experiment = (Experiment) session.get(Experiment.class, new String(id));
+			System.out.println("x335X");
+			experiment = (Experiment) session.get(Experiment.class, new String(id));
 		} finally {
-			session.flush();
+			
 			session.close();
 		}
-
-		return Experiment;
+		System.out.println("XX334");
+		return experiment;
 	}
 
 	public void deleteExperiment(String ExperimentId) throws Exception{
@@ -70,29 +78,30 @@ public class ExperimentDAO {
 			e.printStackTrace();
 			throw new Exception("Error deleting Experiment");
 		} finally {
-			session.flush();
+			
 			session.close();
 		}
 	}
 
-	 
-	@SuppressWarnings("unchecked")
-	public void listExperiments(){
+
+	
+	public List<Experiment> listExperiments(){
 		experiments = new ArrayList<Experiment>();
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			experiments = session.createQuery("from Experiment").list();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Experiment> criteria = builder.createQuery(Experiment.class);
+		Root<Experiment> experimentRoot=criteria.from(Experiment.class);
+		criteria.select(experimentRoot); 
+		experiments = session.createQuery(criteria).getResultList(); 
+		session.close(); 
+		try{ 
+			
+			return experiments;
+		} catch (Exception e) {
+			return new ArrayList<>();
+		}
 
-					
-
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-		} finally {
-			session.flush();
-			session.close();
-		} 
-		 
 	}
 
 	//	@SuppressWarnings("unchecked")
@@ -105,7 +114,7 @@ public class ExperimentDAO {
 	//		} catch (RuntimeException e) {
 	//			e.printStackTrace();
 	//		} finally {
-	//			session.flush();
+	//			
 	//			session.close();
 	//		}
 	//		return matrizes;
@@ -125,7 +134,7 @@ public class ExperimentDAO {
 			e.printStackTrace();
 			throw new Exception("Error to update Experiment");
 		} finally {
-			session.flush();
+			
 			session.close();
 		}
 	}
