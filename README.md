@@ -6,6 +6,6 @@ This application is in development for software dev discipline for Software Engi
 
 Class Diagram v1:
 
-![https://raw.githubusercontent.com/lucianoMarchezan/desSoftwareApp/dev/eng/class%20diagram.png]
+![Class Diagram](https://raw.githubusercontent.com/lucianoMarchezan/desSoftwareApp/dev/eng/class%20diagram.png)
 
 **By Luciano Marchezan**
