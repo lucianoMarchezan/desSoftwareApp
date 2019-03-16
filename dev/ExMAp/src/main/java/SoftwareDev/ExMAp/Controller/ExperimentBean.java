@@ -114,7 +114,7 @@ public class ExperimentBean implements java.io.Serializable{
 
 			experimentDAO.createExperiment(this.experiment); 
 
-//			str = "index";
+			str = "index";
 			clearExperiment();
 			this.setMsg("Experiment registered!");
 		}catch(Exception e){
